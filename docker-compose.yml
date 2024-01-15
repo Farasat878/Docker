@@ -1,0 +1,28 @@
+version: '3'
+services:
+   web:
+    build: .              # Builds Image using DockerFile present in current directory.
+    ports:
+      - "86:8080"            # dynamically assigning host ports for each instance
+    networks:
+      - nodeappweb
+    depends_on:
+      - database         # i.e. web service depends on the database service.
+  database:
+    build: ./database     
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    volumes:
+      # database container's data is stored in this volume, even if the container is stopped or removed.
+      - db-data:/var/lib/postgresql/data 
+    networks:
+      - nodeappweb
+
+networks:
+  nodeappweb:   # Defines custom bridge network named "nodeappweb" to facilitate communication b/w services
+    driver: bridge
+
+volumes:
+  db-data:

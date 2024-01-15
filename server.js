@@ -3,13 +3,13 @@
 const express = require('express');
 
 // Constants
-const PORT = 8080;
+const PORT = 8080; 
 const HOST = '0.0.0.0';
 
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send('<h2 style="color: purple"> Java Home Docker App<h2>');
+  res.send('<h2 style="color: purple"> Hello World. Modifoed the Docker File Again.<h2>');
 });
 
 app.listen(PORT, HOST);
